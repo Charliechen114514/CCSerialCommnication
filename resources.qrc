@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file>Resources/mumble-theme/OSX Lite.qss</file>
+        <file>Resources/mumble-theme/Lite.qss</file>
+        <file>Resources/mumble-theme/OSX Dark.qss</file>
+        <file>Resources/mumble-theme/Dark.qss</file>
+        <file>Resources/light_themes/dark/darkstyle.qss</file>
+        <file>Resources/light_themes/light/lightstyle.qss</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>Resources/light_themes/dark/darkstyle.qrc</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>Resources/application_icons/application_icon.ico</file>
+        <file>Resources/application_icons/OffCommunications.png</file>
+        <file>Resources/application_icons/OnCommunications.png</file>
+    </qresource>
+</RCC>
