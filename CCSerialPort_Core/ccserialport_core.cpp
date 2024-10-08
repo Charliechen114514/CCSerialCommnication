@@ -1,8 +1,8 @@
 #include "ccserialport_core.h"
+#include <QDebug>
 #include <QSerialPortInfo>
 #include <QThread>
 #include "CCSerialPort_Core/serialporterrorhhandler.h"
-#include "qdebug.h"
 CCSerialPort_Core::CCSerialPort_Core(QObject* parent) : QObject(parent) {
     initPort();
     scand_timer.setInterval(TimerConfig::SCAN_PERIOD);
@@ -10,6 +10,8 @@ CCSerialPort_Core::CCSerialPort_Core(QObject* parent) : QObject(parent) {
             &CCSerialPort_Core::tellRefreshAvailablePorts);
     connect(serial_port.get(), &QSerialPort::readyRead, this,
             &CCSerialPort_Core::tellNewReceivings);
+    connect(serial_port.get(), &QSerialPort::errorOccurred, this,
+            &CCSerialPort_Core::tellCurrentComErrorOccur);
     setScanState(true);
 }
 
@@ -77,6 +79,12 @@ QStringList CCSerialPort_Core::availPortsName() {
     const auto  ports = QSerialPortInfo::availablePorts();
     for (const auto& port : ports) l << port.portName();
     return l;
+}
+
+void CCSerialPort_Core::shutDownCom() {
+    if (serial_port->isOpen()) {
+        serial_port->close();
+    }
 }
 
 void CCSerialPort_Core::closeCom() {

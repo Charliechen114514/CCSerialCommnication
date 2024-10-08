@@ -17,6 +17,10 @@ void UiMainWindowManagerHandler::initMainWindowUi() {
     status_bar_widget->setReceivingCounts(0);
     status_bar_widget->setSendCounts(0);
     window->ui->statusbar->addPermanentWidget(status_bar_widget.get());
+
+    connect(window->ui->com_comboBox, &QComboBox::activated, this,
+            &UiMainWindowManagerHandler::tellStopScan);
+
     doOffCommun();
     initMenu();
     loadStyleSheets();
@@ -64,6 +68,10 @@ void UiMainWindowManagerHandler::updateStatusLabel(
             int send = infos.toInt();
             status_bar_widget->setSendCounts(send);
         } break;
+        case StatusBarWidget::StatusBarRole::ErrorOccur:
+            QString res = infos.toString();
+            window->ui->statusbar->showMessage(res);
+            break;
     }
 }
 

@@ -16,7 +16,7 @@ public:
     explicit StatusBarWidget(QWidget* parent = nullptr);
     void setReceivingCounts(const int& rec);
     void setSendCounts(const int& send);
-    enum class StatusBarRole { RECEIVE, SEND };
+    enum class StatusBarRole { RECEIVE, SEND, ErrorOccur };
     ~StatusBarWidget();
 
 private:

@@ -61,6 +61,8 @@ private:
     void stopCommunication();
     void doWritingToSerial();
     void handleReceivings();
+    void handleErrorOccurs();
+    void doStopScan();
     void handleTimelySend(bool st);
     friend class UiMainWindowManagerHandler;
     friend class InitUiMainWindowConfig;

@@ -58,11 +58,21 @@ FORMS += \
     Ui/TimerSendWidget/timersendwidget.ui
 
 DEFINES += \
-    DEBUG_CHECK_TIMER_WORK
+    DEBUG_CHECK_TIMER_WORK \
+    PURE_RELEASE
 
 DEFINES += \
     MAJOR_VERISON=1 \
     MINOR_VERSION=0
+
+
+release{
+contains(DEFINES, PURE_RELEASE){
+DEFINES += QT_NO_WARNING_OUTPUT
+DEFINES += QT_NO_DEBUG_OUTPUT
+}
+}
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

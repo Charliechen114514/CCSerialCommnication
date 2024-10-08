@@ -22,9 +22,12 @@ public:
     void                   setScanState(bool shellStartScan);
     std::optional<QString> doReadFromSerial();
     int                    doWriteToSerial(const QString& str);
+    void                   shutDownCom();
+    void                   startScan();
 signals:
     void tellRefreshAvailablePorts();
     void tellNewReceivings();
+    void tellCurrentComErrorOccur();
 
 private:
     std::unique_ptr<QSerialPort> serial_port;

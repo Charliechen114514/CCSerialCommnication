@@ -20,6 +20,8 @@ void MainWindow::initConnections() {
             this, &MainWindow::rescanComSerial);
     connect(serial_core.get(), &CCSerialPort_Core::tellNewReceivings, this,
             &MainWindow::handleReceivings);
+    connect(serial_core.get(), &CCSerialPort_Core::tellCurrentComErrorOccur,
+            this, &MainWindow::handleErrorOccurs);
     connect(ui->checkBox_showHex, &QCheckBox::stateChanged, this,
             &MainWindow::hexDisplay);
     connect(ui->action_save_current_frame, &QAction::triggered, this,
@@ -32,6 +34,12 @@ void MainWindow::initConnections() {
             &MainWindow::handleTimelySend);
     connect(ui->action_about, &QAction::triggered, this,
             &MainWindow::displayAbout);
+    connect(&ui_handler, &UiMainWindowManagerHandler::tellStopScan, this,
+            &MainWindow::doStopScan);
+}
+
+void MainWindow::doStopScan() {
+    serial_core->setScanState(false);
 }
 
 void MainWindow::displayAbout() {
@@ -62,6 +70,16 @@ void MainWindow::handleReceivings() {
 
 void MainWindow::handleTimelySend(bool st) {
     ui_handler.doSetAbleClear(!st);
+}
+
+void MainWindow::handleErrorOccurs() {
+    serial_core->shutDownCom();
+    ui_handler.setStatus(
+        UiMainWindowManagerHandler::Status::OFF_COMMUNICATIONS);
+    serial_core->setScanState(true);
+    rescanComSerial();
+    ui_handler.updateStatusLabel(serial_core->errorString(),
+                                 StatusBarWidget::StatusBarRole::ErrorOccur);
 }
 
 void MainWindow::doWritingToSerial() {

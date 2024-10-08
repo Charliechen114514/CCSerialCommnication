@@ -41,6 +41,9 @@ public:
     void                   handleSettings(RoleActions r);
     void handleThemes(StyleSheetsHandler::ThemesDefaultPool::Selections s);
 
+signals:
+    void tellStopScan();
+
 private:
     MEMORY_PASS_ONLY MainWindow* window{nullptr};
     void                         doAccordingToStatus();

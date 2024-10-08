@@ -3,7 +3,6 @@
 #include <QMap>
 #include <QString>
 #include <QtClassHelperMacros>
-#include <memory>
 
 #define MEMORY_HOLD_BY_OBJ_TREE
 #define MEMORY_HOLD_BY_SMT_PTR
